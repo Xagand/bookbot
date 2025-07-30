@@ -1,5 +1,11 @@
+from stats import count_words
+import sys
+
 def main():
-    with open("books/frankenstein.txt") as f:
+    if len(sys.argv) < 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    with open(sys.argv[1]) as f:
         file_contents = f.read()
     
     num_of_words = count_words(file_contents)
@@ -11,17 +17,9 @@ def main():
     list_of_dict.sort(reverse=True, key=sort_on)
     
     for dict in list_of_dict:
-        print(f"The {dict["char"]} character was found {dict["num"]} times")
+        print(f"{dict["char"]}: {dict["num"]}")
     
-
-
-def count_words(text):
-    counter = 0
-    words = text.split()
-    for word in words:
-        counter += 1
-    return counter
-    #print(f"There is {counter} words in this book")
+    
 
 def character_counter(text):
     uniq_char = {}
@@ -48,4 +46,5 @@ def sort_on(dict):
 
 
 
-main()
+if __name__ == "__main__":
+    main()
